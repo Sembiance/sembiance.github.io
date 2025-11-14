@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<title>delvonator calculator</title>
+		<style>
+			body
+			{
+				background-color: #000;
+				padding-top: 2.0em;
+				text-align: center;
+				color: #eee;
+			}
+
+			#mainBox
+			{
+				background-color: #222324;
+				border-radius: 5px;
+				box-shadow: 3px 5px 20px #030303;
+				font-family: Arial;
+    			font-size: 1.30em;
+				padding: 1.25em;
+				display: inline-block;
+			}
+
+			#mainBox h1
+			{
+				margin: 0;
+			}
+
+			input
+			{
+				background: #444;
+				padding: 0.25em 0.5em;
+				margin: 2px;
+				color: #eee;
+				border-radius: 3px;
+				border: 1px solid #555;
+				font-family: Arial;
+    			font-size: 1.20em;
+				line-height: 1.20em;
+				width: 5.0em;
+			}
+
+			label
+			{
+				margin-right: 2.0em
+			}
+
+			hr
+			{
+				border-color: #171717;
+				opacity: 0.5;
+			}
+
+			table
+			{
+				border-collapse: collapse;
+			}
+
+			table td
+			{
+				border: 3px solid #222324;
+				border-collapse: collapse;
+				padding: 0.25em;
+			}
+
+			table td hr
+			{
+				margin: 0;
+			}
+
+			table thead th
+			{
+				border-radius: 0.25em;
+				padding: 0.5em;
+			}
+
+			table thead tr th:nth-child(2)
+			{
+				background-color: transparent;
+			}
+
+			table tbody tr td:nth-child(1)
+			{
+				text-align: right;
+			}
+
+			.profit
+			{
+				font-weight: bold;
+				background-color: #333;
+				border-radius: 3px;
+				display: inline-block;
+				width: 10.0em;
+				height: 2em;
+				text-align: center;
+				line-height: 2.0em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mainBox">
+			<center><h1>delvonator calculator</h1></center>
+			<hr>
+			<label># Azurite <input id="azurite" type="number"></label><br>
+			<br>
+			<table>
+				<thead>
+					<tr>
+						<th colspan="2">Currency Exchange Rates</th>
+						<th>&nbsp;</th>
+						<th>Profit</th>
+					</tr>
+				</thead>
+				<tr><td colspan="4"><hr></td></tr>
+				<tr class="resonator" data-price="300">
+					<td>Primitive Chaotic Resonantor</td>
+					<td><input class="sellPrice" type="number"></td>
+					<td>&nbsp;</td>
+					<td><span class="profit"></span></td>
+				</tr>
+				<tr class="resonator" data-price="750">
+					<td>Potent Chaotic Resonantor</td>
+					<td><input class="sellPrice" type="number"></td>
+					<td>&nbsp;</td>
+					<td><span class="profit"></span></td>
+				</tr>
+				<tr class="resonator" data-price="3750">
+					<td>Powerful Chaotic Resonantor</td>
+					<td><input class="sellPrice" type="number"></td>
+					<td>&nbsp;</td>
+					<td><span class="profit"></span></td>
+				</tr>
+			</table>
+		</div>
+		<script>
+			const azuriteInput = document.getElementById("azurite");
+			function calculate()
+			{
+				for(const row of Array.from(document.querySelectorAll(".resonator")))
+				{
+					const sellPrice = row.querySelector(".sellPrice").valueAsNumber;
+					const profit = row.querySelector(".profit");
+					if(!isNaN(azuriteInput.valueAsNumber) && !isNaN(sellPrice))
+						profit.textContent = `${((azuriteInput.valueAsNumber/(+row.dataset.price))*sellPrice).toLocaleString()} chaos`;
+					else
+						profit.textContent = "";
+				}
+			}
+
+			[azuriteInput, ...["sellPrice"].flatMap(key => Array.from(document.getElementsByClassName(key)))].forEach(inputElement => inputElement.addEventListener("input", calculate));
+		</script>
+	</body>
+</html>
